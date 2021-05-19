@@ -1,13 +1,15 @@
 sudo: required
 language: generic
 
-services:
+services: # dependencies
   - docker
 
 before_install:
+  # create build that contains test(s) to run
   - docker build -t zhixiangteoh/react-test -f ./client/Dockerfile.dev ./client
 
 script:
+  # run tests; CI=true so that program exits after tests finish running
   - docker run -e CI=true zhixiangteoh/react-test npm test
 
 after_success:
@@ -22,3 +24,15 @@ after_success:
   - docker push zhixiangteoh/multi-sg-nginx
   - docker push zhixiangteoh/multi-sg-server
   - docker push zhixiangteoh/multi-sg-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "multi-container-travis"
+  env: "Multicontainertravis-env"
+  bucket_name: elasticbeanstalk-us-east-1-774919001833
+  bucket_path: docker-multi
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
