@@ -3,28 +3,28 @@
     "containerDefinitions": [
         {
             "name": "client",
-            "image": "zhixiangteoh/complex_client",
+            "image": "zhixiangteoh/multi-sg-client",
             "hostname": "client",
             "essential": false,
             "memory": 128
         },
         {
             "name": "server",
-            "image": "zhixiangteoh/complex_server",
+            "image": "zhixiangteoh/multi-sg-server",
             "hostname": "api",
             "essential": false,
             "memory": 128
         },
         {
             "name": "worker",
-            "image": "zhixiangteoh/complex_worker",
+            "image": "zhixiangteoh/multi-sg-worker",
             "hostname": "worker",
             "essential": false,
             "memory": 128
         },
         {
             "name": "nginx",
-            "image": "zhixiangteoh/complex_nginx",
+            "image": "zhixiangteoh/multi-sg-nginx",
             "hostname": "nginx",
             "essential": true,
             "portMappings": [
